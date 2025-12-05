@@ -39,6 +39,15 @@ game.sprites.button.create = function() {
     p.y = 450
     p.svg = new Path2D('M10 10 L40 25 L10 40')
 
+    // Home Button
+    p = game.sprites.button.cloneCreate()
+    p.id = 'home'
+    p.width = 50
+    p.height = 50
+    p.x = 380
+    p.y = 600
+    p.svg = new Path2D('M25 10 L45 30 L35 30 L35 45 L15 45 L15 30 L5 30 Z')
+
     // Level button
     for (let i = 1; i <= game.levels.length; i++) {
         p = game.sprites.button.cloneCreate()
@@ -113,6 +122,24 @@ game.sprites.button.update = function () {
         game.isPaused=false
         game.loadLevel(this.lvlNb-1)
     }
+    // Home
+    if (this.id == 'home') {
+        if (this.isClicked) {
+            game.isPaused=false
+            game.levelState='running'  // Reset level state
+            mge.game.changeScene(game.scenes.boot)  // Go back to boot scene (home screen)
+        }
+        // Position home button appropriately based on game state
+        if (game.levelState != 'running' && !game.animationInProgress) {
+            this.x = 510  // Between restart and next buttons
+            this.y = 450
+        } else {
+            this.x = 380
+            this.y = 600
+        }
+        // Make sure home button is always visible
+        this.isVisible = true;
+    }
 }
 
 game.sprites.button.drawFunction = function (ctx) {
@@ -145,6 +172,10 @@ game.sprites.button.drawFunction = function (ctx) {
         if (this.id == 'audio') {
             if (game.audioOn) {ctx.stroke(this.svgOn)} 
             else {ctx.stroke(this.svgOff)}
+        } 
+        // Home
+        if (this.id == 'home') {
+            ctx.stroke(this.svg)
         } 
     } else {
         if (game.levelState != 'running' && !game.animationInProgress) {

@@ -296,15 +296,16 @@ game.sprites.hydro.calcPipesFlow = function () {
         // Apply special valve effects (pressure boosters, flow controllers)
         // Find valves that affect this pipe
         game.sprites.hydro.valves.forEach(function (valve) {
+            // Check if this valve is connected to the pipe
             if (valve.linkedTank == pipe.connection1 || valve.linkedTank == pipe.connection2) {
                 if (valve.linkedTank.isOpen == 1) {
-                    // Check if this is a pressure booster (valve that increases flow)
-                    if (valve.trigger && valve.trigger.length > 200) { // pressure booster
-                        pipe.flow *= 1.5; // boost the flow
+                    // Check if this is a pressure booster (valve with longer trigger length)
+                    if (valve.trigger && typeof valve.trigger === 'object' && valve.trigger.length > 200) { // pressure booster
+                        pipe.flow *= 1.8; // boost the flow significantly
                     }
-                    // Check if this is a flow controller (valve that regulates flow)
-                    else if (valve.trigger && valve.trigger.length > 50 && valve.trigger.length <= 200) { // flow controller
-                        pipe.flow *= 0.7; // reduce the flow for control
+                    // Check if this is a flow controller (valve with medium trigger length)
+                    else if (valve.trigger && typeof valve.trigger === 'object' && valve.trigger.length > 50 && valve.trigger.length <= 200) { // flow controller
+                        pipe.flow *= 0.6; // reduce the flow for better control
                     }
                 }
             }
@@ -329,18 +330,18 @@ game.sprites.hydro.calcDistributorsPressure = function () {
     })
 }
 
-game.sprites.hydro.calcPipesFlow = function () {
-    game.sprites.hydro.pipes.forEach(function (pipe) {
-        // Calculate flow
-        pipe.flow = pipe.connection1.pressure - pipe.connection2.pressure
-        pipe.flow = Math.round(pipe.flow * game.sprites.hydro.flowConst)
-        // If tank is closed, then flow = 0
-        if (pipe.connection1.isOpen == 0) {pipe.flow = 0} 
-        if (pipe.connection2.isOpen == 0) {pipe.flow = 0} 
-        if (pipe.flow>0 && pipe.flow < game.sprites.hydro.minPipeFlow) {pipe.flow = game.sprites.hydro.minPipeFlow}
-        if (pipe.flow<0 && pipe.flow > -game.sprites.hydro.minPipeFlow) {pipe.flow = -game.sprites.hydro.minPipeFlow}
-    })
-}
+//game.sprites.hydro.calcPipesFlow = function () {
+//    game.sprites.hydro.pipes.forEach(function (pipe) {
+//        // Calculate flow
+//        pipe.flow = pipe.connection1.pressure - pipe.connection2.pressure
+//        pipe.flow = Math.round(pipe.flow * game.sprites.hydro.flowConst)
+//        // If tank is closed, then flow = 0
+//        if (pipe.connection1.isOpen == 0) {pipe.flow = 0} 
+//        if (pipe.connection2.isOpen == 0) {pipe.flow = 0} 
+//        if (pipe.flow>0 && pipe.flow < game.sprites.hydro.minPipeFlow) {pipe.flow = game.sprites.hydro.minPipeFlow}
+//        if (pipe.flow<0 && pipe.flow > -game.sprites.hydro.minPipeFlow) {pipe.flow = -game.sprites.hydro.minPipeFlow}
+//    })
+//}
 
 game.sprites.hydro.updateTankCurHeight = function () {
     // For each pipe, update the linked tank if exists

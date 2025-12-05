@@ -11,8 +11,52 @@ game.loadLevel = function(levelID) {
     if (levelID >= game.levels.length) {levelID=0}
     // Update curLevel
     game.curLevel = levelID
-    // Load level
-    game.levels[game.curLevel]()
+    // Load level with easier modifications
+    makeLevelEasier(game.levels[game.curLevel], game.curLevel);
+}
+
+// Function to make all levels easier
+function makeLevelEasier(levelFunction, levelID) {
+    // Execute original level function
+    levelFunction();
+    
+    // Apply additional ease modifications based on level ID
+    if (levelID === 0) {
+        // Level 1 - already made easier by opening the valve by default
+    } else if (levelID === 1) {
+        // Level 2 - already made easier by opening 2 valves
+    } else if (levelID === 2) {
+        // Level 3 - open more valves to make it easier
+        if (game.sprites.hydro.valves[2]) game.sprites.hydro.valves[2].linkedTank.isOpen = 1;
+    } else if (levelID === 3) {
+        // Level 4 - already made easier
+    } else if (levelID === 4) {
+        // Level 5 - open more valves to make it easier
+        if (game.sprites.hydro.valves[2]) game.sprites.hydro.valves[2].linkedTank.isOpen = 1;
+    } else if (levelID === 5) {
+        // Level 6 - open more valves to make it easier
+        if (game.sprites.hydro.valves[0]) game.sprites.hydro.valves[0].linkedTank.isOpen = 1;
+        if (game.sprites.hydro.valves[3]) game.sprites.hydro.valves[3].linkedTank.isOpen = 1;
+    } else if (levelID === 6) {
+        // Level 7 - open more valves to make it easier
+        if (game.sprites.hydro.valves[0]) game.sprites.hydro.valves[0].linkedTank.isOpen = 1;
+        if (game.sprites.hydro.valves[2]) game.sprites.hydro.valves[2].linkedTank.isOpen = 1;
+    } else if (levelID === 7) {
+        // Level 8 - open more valves to make it easier
+        if (game.sprites.hydro.valves[2]) game.sprites.hydro.valves[2].linkedTank.isOpen = 1;
+        if (game.sprites.hydro.valves[3]) game.sprites.hydro.valves[3].linkedTank.isOpen = 1;
+    } else if (levelID === 8) {
+        // Level 9 - open more valves to make it easier
+        if (game.sprites.hydro.valves[2]) game.sprites.hydro.valves[2].linkedTank.isOpen = 1;
+        if (game.sprites.hydro.valves[6]) game.sprites.hydro.valves[6].linkedTank.isOpen = 1;
+    } else if (levelID >= 9) {
+        // For newer levels with special features, make them easier by opening more valves where appropriate
+        game.sprites.hydro.valves.forEach(function(valve, index) {
+            if (index < 3 && valve && valve.trigger === 'click') {
+                valve.linkedTank.isOpen = 1;
+            }
+        });
+    }
 }
 
 // Introduction - Made easier: valve already opened

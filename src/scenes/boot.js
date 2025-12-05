@@ -37,6 +37,8 @@ game.scenes.boot.update = function() {
     if (game.sprites.cat.cleanLevel <= 0.4) {
         game.sprites.restartContinue.cloneExecuteForEach('update')
     }
+    // Update buttons
+    game.sprites.button.cloneExecuteForEach('update')
     // Force y position of cat
     game.sprites.cat.y = 300
     // Ball
@@ -79,4 +81,6 @@ game.scenes.boot.draw = function() {
         // Buttons
         game.sprites.restartContinue.cloneExecuteForEach('draw')
     }
+    // Draw buttons (including home button)
+    game.sprites.button.cloneExecuteForEach('draw')
 }
