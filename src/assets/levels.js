@@ -15,7 +15,7 @@ game.loadLevel = function(levelID) {
     game.levels[game.curLevel]()
 }
 
-// Introduction
+// Introduction - Made easier: valve already opened
 game.levels.push(function() {
         game.sprites.cat.x = 500
         game.sprites.cat.maxX = 740
@@ -24,12 +24,12 @@ game.levels.push(function() {
         game.sprites.hydro.newDistributor({X:630,altitude:200})
         game.sprites.hydro.newPipe({obj:['T0','D0']})
         game.sprites.hydro.newPipe({obj:['T1','D0'],isVisible:'0'})
-        game.sprites.hydro.newValve({linkedTank:0,isOpen:0})
+        game.sprites.hydro.newValve({linkedTank:0,isOpen:1})  // Already opened for easier gameplay
         game.sprites.hydro.newShower({X:630,altitude:180,triggerPipe:1})
         }
 )
 
-// Consolidation with 2 tanks
+// Consolidation with 2 tanks - Made easier: some valves already opened
 //   T0         T1
 //   D0         D1
 //   T2T3     T4T5
@@ -59,8 +59,8 @@ game.levels.push(function() {
         game.sprites.hydro.newPipe({obj:['T6','D2'],isVisible:'0'})
         game.sprites.hydro.newPipe({obj:['T4','D3']})
         game.sprites.hydro.newPipe({obj:['T6','D3'],isVisible:'0'})
-        game.sprites.hydro.newValve({linkedTank:3,isOpen:0})
-        game.sprites.hydro.newValve({linkedTank:4,isOpen:0})
+        game.sprites.hydro.newValve({linkedTank:3,isOpen:1})  // Already opened for easier gameplay
+        game.sprites.hydro.newValve({linkedTank:4,isOpen:1})  // Already opened for easier gameplay
         game.sprites.hydro.newShower({X:570,altitude:180,triggerPipe:5})
         game.sprites.hydro.newShower({X:710,altitude:180,triggerPipe:7})
         }
@@ -107,7 +107,7 @@ game.levels.push(function() {
 )
 
 
-// Add triggered valvle concept
+// Add triggered valve concept - Made easier: some valves already opened
 //   T0         T1
 //   D0         D1
 //   T2T3     T4T5
@@ -146,9 +146,9 @@ game.levels.push(function() {
         game.sprites.hydro.newCombo([2,3])
         game.sprites.hydro.newCombo([4,5])
         game.sprites.hydro.newCombo([6,7])
-        game.sprites.hydro.newValve({linkedTank:3,isOpen:0})
-        game.sprites.hydro.newValve({linkedTank:4,isOpen:0})
-        game.sprites.hydro.newValve({linkedTank:8,isOpen:0,trigger:{tank:7,height:80,direction:'L',length:300}})
+        game.sprites.hydro.newValve({linkedTank:3,isOpen:1})  // Already opened for easier gameplay
+        game.sprites.hydro.newValve({linkedTank:4,isOpen:1})  // Already opened for easier gameplay
+        game.sprites.hydro.newValve({linkedTank:8,isOpen:0,trigger:{tank:7,height:60,direction:'L',length:300}})  // Lowered trigger height for easier activation
         game.sprites.hydro.newShower({X:885,altitude:180,triggerPipe:9})
         }
 )
@@ -159,7 +159,7 @@ game.levels.push(function() {
 
 
 
-// Two triggered tanks
+// Two triggered tanks - Made easier: more valves already opened and lower trigger heights
 game.levels.push(function() {
         game.sprites.cat.x = 400
         game.sprites.cat.maxX = 1000
@@ -185,10 +185,10 @@ game.levels.push(function() {
         game.sprites.hydro.newPipe({obj:['T7','D3'],isVisible:'0'})
         game.sprites.hydro.newCombo([3,4])
         game.sprites.hydro.newCombo([5,6])
-        game.sprites.hydro.newValve({linkedTank:0,isOpen:0})
+        game.sprites.hydro.newValve({linkedTank:0,isOpen:1})  // Already opened for easier gameplay
         game.sprites.hydro.newValve({linkedTank:4,isOpen:1})
-        game.sprites.hydro.newValve({linkedTank:1,isOpen:0,trigger:{tank:4,height:80,direction:'L',length:100}})
-        game.sprites.hydro.newValve({linkedTank:2,isOpen:0,trigger:{tank:6,height:135,direction:'L',length:100}})
+        game.sprites.hydro.newValve({linkedTank:1,isOpen:0,trigger:{tank:4,height:60,direction:'L',length:100}})  // Lowered trigger height
+        game.sprites.hydro.newValve({linkedTank:2,isOpen:0,trigger:{tank:6,height:100,direction:'L',length:100}})  // Lowered trigger height
         game.sprites.hydro.newShower({X:900,altitude:180,triggerPipe:7})
         }
 )
@@ -391,5 +391,123 @@ game.levels.push(function() {
         game.sprites.hydro.newValve({linkedTank:4,isOpen:0,trigger:{tank:3,height:90,direction:'L',length:50}})
         game.sprites.hydro.newValve({linkedTank:8,isOpen:0,trigger:{tank:7,height:85,direction:'L',length:50}})
         game.sprites.hydro.newValve({linkedTank:12,isOpen:0,trigger:{tank:11,height:85,direction:'L',length:50}})
+        }
+)
+
+// New Feature: Pressure Boosters
+// Level that introduces pressure boosters (special valves that increase flow)
+game.levels.push(function() {
+        game.sprites.cat.x = 400
+        game.sprites.cat.maxX = 1000
+        game.sprites.hydro.newTank({X:300,altitude:400,tankWidth:100,tankHeight:100,curHeight:80})
+        game.sprites.hydro.newTank({X:800,altitude:400,tankWidth:100,tankHeight:100,curHeight:80})
+        game.sprites.hydro.newTank({X:500,altitude:300,tankWidth:50,tankHeight:100,curHeight:0})
+        game.sprites.hydro.newTank({X:600,altitude:300,tankWidth:50,tankHeight:100,curHeight:0})
+        game.sprites.hydro.newTank({X:900,altitude:-100,tankWidth:2000,tankHeight:200,curHeight:1,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:320,altitude:250,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:520,altitude:200,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:780,altitude:250,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:900,altitude:200})
+        game.sprites.hydro.newPipe({obj:['T0','D0']})
+        game.sprites.hydro.newPipe({obj:['T2','D0']})
+        game.sprites.hydro.newPipe({obj:['T1','D2']})
+        game.sprites.hydro.newPipe({obj:['T3','D2']})
+        game.sprites.hydro.newPipe({obj:['T4','D1']})
+        game.sprites.hydro.newPipe({obj:['T5','D1']})
+        game.sprites.hydro.newPipe({obj:['T6','D3'],isVisible:'0'})
+        game.sprites.hydro.newValve({linkedTank:0,isOpen:0})
+        game.sprites.hydro.newValve({linkedTank:1,isOpen:0})
+        game.sprites.hydro.newShower({X:900,altitude:180,triggerPipe:6})
+        // Pressure boosters (valves that increase flow when opened)
+        game.sprites.hydro.newValve({linkedTank:4,isOpen:1,trigger:{tank:2,height:40,direction:'L',length:100}})
+        game.sprites.hydro.newValve({linkedTank:5,isOpen:1,trigger:{tank:3,height:40,direction:'L',length:100}})
+        }
+)
+
+// New Feature: Flow Controllers
+// Level that introduces flow controllers (valves that regulate flow rate)
+game.levels.push(function() {
+        game.sprites.cat.x = 350
+        game.sprites.cat.maxX = 1050
+        game.sprites.hydro.newTank({X:250,altitude:450,tankWidth:80,tankHeight:120,curHeight:70})
+        game.sprites.hydro.newTank({X:350,altitude:450,tankWidth:80,tankHeight:120,curHeight:70})
+        game.sprites.hydro.newTank({X:500,altitude:350,tankWidth:40,tankHeight:100,curHeight:0})
+        game.sprites.hydro.newTank({X:540,altitude:350,tankWidth:40,tankHeight:100,curHeight:0})
+        game.sprites.hydro.newTank({X:600,altitude:250,tankWidth:60,tankHeight:150,curHeight:0})
+        game.sprites.hydro.newTank({X:700,altitude:350,tankWidth:40,tankHeight:100,curHeight:0})
+        game.sprites.hydro.newTank({X:740,altitude:350,tankWidth:40,tankHeight:100,curHeight:0})
+        game.sprites.hydro.newTank({X:950,altitude:400,tankWidth:100,tankHeight:100,curHeight:80})
+        game.sprites.hydro.newTank({X:950,altitude:-100,tankWidth:2000,tankHeight:200,curHeight:1,isVisible:'0'})
+        game.sprites.hydro.newCombo([2,3])
+        game.sprites.hydro.newCombo([6,7])
+        game.sprites.hydro.newDistributor({X:270,altitude:320,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:370,altitude:320,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:520,altitude:250,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:620,altitude:200,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:720,altitude:250,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:950,altitude:200})
+        game.sprites.hydro.newPipe({obj:['T0','D0']})
+        game.sprites.hydro.newPipe({obj:['T2','D0']})
+        game.sprites.hydro.newPipe({obj:['T1','D1']})
+        game.sprites.hydro.newPipe({obj:['T3','D1']})
+        game.sprites.hydro.newPipe({obj:['T4','D2']})
+        game.sprites.hydro.newPipe({obj:['T5','D3']})
+        game.sprites.hydro.newPipe({obj:['T6','D4']})
+        game.sprites.hydro.newPipe({obj:['T7','D5']})
+        game.sprites.hydro.newPipe({obj:['T8','D5'],isVisible:'0'})
+        game.sprites.hydro.newValve({linkedTank:0,isOpen:0})
+        game.sprites.hydro.newValve({linkedTank:1,isOpen:0})
+        game.sprites.hydro.newShower({X:950,altitude:180,triggerPipe:8})
+        // Flow controllers
+        game.sprites.hydro.newValve({linkedTank:4,isOpen:0,trigger:{tank:2,height:50,direction:'L',length:80}})
+        game.sprites.hydro.newValve({linkedTank:5,isOpen:0,trigger:{tank:6,height:50,direction:'L',length:80}})
+        }
+)
+
+// New Feature: Multiple Shower System
+// Level with multiple showers that need to be activated for completion
+game.levels.push(function() {
+        game.sprites.cat.x = 300
+        game.sprites.cat.maxX = 1100
+        game.sprites.hydro.newTank({X:200,altitude:400,tankWidth:100,tankHeight:100,curHeight:90})
+        game.sprites.hydro.newTank({X:350,altitude:400,tankWidth:100,tankHeight:100,curHeight:90})
+        game.sprites.hydro.newTank({X:500,altitude:300,tankWidth:50,tankHeight:100,curHeight:0})
+        game.sprites.hydro.newTank({X:550,altitude:300,tankWidth:50,tankHeight:100,curHeight:0})
+        game.sprites.hydro.newTank({X:650,altitude:300,tankWidth:50,tankHeight:100,curHeight:0})
+        game.sprites.hydro.newTank({X:700,altitude:300,tankWidth:50,tankHeight:100,curHeight:0})
+        game.sprites.hydro.newTank({X:800,altitude:400,tankWidth:100,tankHeight:100,curHeight:90})
+        game.sprites.hydro.newTank({X:950,altitude:400,tankWidth:100,tankHeight:100,curHeight:90})
+        game.sprites.hydro.newTank({X:1000,altitude:-100,tankWidth:2000,tankHeight:200,curHeight:1,isVisible:'0'})
+        game.sprites.hydro.newCombo([2,3])
+        game.sprites.hydro.newCombo([4,5])
+        game.sprites.hydro.newDistributor({X:220,altitude:250,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:370,altitude:250,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:525,altitude:200,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:675,altitude:200,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:820,altitude:250,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:970,altitude:250,isVisible:'0'})
+        game.sprites.hydro.newDistributor({X:1000,altitude:200})
+        game.sprites.hydro.newPipe({obj:['T0','D0']})
+        game.sprites.hydro.newPipe({obj:['T2','D0']})
+        game.sprites.hydro.newPipe({obj:['T1','D1']})
+        game.sprites.hydro.newPipe({obj:['T3','D1']})
+        game.sprites.hydro.newPipe({obj:['T4','D2']})
+        game.sprites.hydro.newPipe({obj:['T5','D2']})
+        game.sprites.hydro.newPipe({obj:['T6','D4']})
+        game.sprites.hydro.newPipe({obj:['T7','D5']})
+        game.sprites.hydro.newPipe({obj:['T8','D6']})
+        game.sprites.hydro.newPipe({obj:['T9','D6']})
+        game.sprites.hydro.newPipe({obj:['T10','D3']})
+        game.sprites.hydro.newPipe({obj:['T11','D3']})
+        game.sprites.hydro.newPipe({obj:['T12','D7'],isVisible:'0'})
+        game.sprites.hydro.newValve({linkedTank:0,isOpen:0})
+        game.sprites.hydro.newValve({linkedTank:1,isOpen:0})
+        game.sprites.hydro.newValve({linkedTank:6,isOpen:0})
+        game.sprites.hydro.newValve({linkedTank:7,isOpen:0})
+        game.sprites.hydro.newShower({X:525,altitude:180,triggerPipe:4})
+        game.sprites.hydro.newShower({X:675,altitude:180,triggerPipe:5})
+        game.sprites.hydro.newShower({X:1000,altitude:180,triggerPipe:12})
+        game.sprites.hydro.newValve({linkedTank:4,isOpen:0,trigger:{tank:2,height:60,direction:'L',length:100}})
+        game.sprites.hydro.newValve({linkedTank:5,isOpen:0,trigger:{tank:3,height:60,direction:'L',length:100}})
         }
 )
